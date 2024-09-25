@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            margin-top: 20px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #343a40;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card p-4">
+            <h1 class="text-center">Student Management</h1>
+            <form action="/add_student" method="post" class="mb-4">
+                <div class="form-row">
+                    <div class="form-group col-md-4 col-sm-12">
+                        <input type="text" class="form-control" name="REGNO" placeholder="REGNO" required>
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <input type="text" class="form-control" name="StudentName" placeholder="Student Name" required>
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
+                        <select class="form-control" name="Gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Add Student</button>
+                </div>
+            </form>
+
+            <h2>Existing Students</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered mb-4">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>REGNO</th>
+                            <th>Student Name</th>
+                            <th>Gender</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                            <tr>
+                                <td>{{ student.REGNO }}</td>
+                                <td>{{ student.StudentName }}</td>
+                                <td>{{ student.Gender }}</td>
+                                <td>
+                                    <form action="/delete_student/{{ student.REGNO }}" method="post" style="display:inline;">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center">No students found.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-center">
+                <a href="/rollcall" class="btn btn-success">Roll Call</a>
+                <a href="/check" class="btn btn-info">Check Attendance</a>
+                <a href="/files" class="btn btn-primary">View Attendance Files</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

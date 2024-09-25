@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Files</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        h1 {
+            color: #343a40;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .list-group-item {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .list-group-item:hover {
+            background-color: #e9ecef;
+        }
+
+        .footer {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Attendance Records</h1>
+
+        <ul class="list-group">
+            {% for file in files %}
+                <li class="list-group-item">
+                    <a href="/view_file/{{ file }}" class="btn btn-link">{{ file }}</a>
+                </li>
+            {% else %}
+                <li class="list-group-item text-center">No files found.</li>
+            {% endfor %}
+        </ul>
+
+        <div class="text-center mt-4 footer">
+            <a href="/" class="btn btn-info">Back to Home</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

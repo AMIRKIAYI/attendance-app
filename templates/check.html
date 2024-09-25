@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Attendance</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        h1 {
+            color: #343a40;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .filter-buttons a {
+            margin: 0 5px;
+        }
+
+        .table-responsive {
+            margin-top: 20px;
+        }
+
+        .table thead th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .btn {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            color: white;
+        }
+
+        .footer {
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Attendance Records</h1>
+
+        <!-- Filter Buttons -->
+        <div class="text-center mb-4 filter-buttons">
+            <a href="/check?status=present" class="btn btn-success">Show Present</a>
+            <a href="/check?status=absent" class="btn btn-danger">Show Absent</a>
+            <a href="/check" class="btn btn-secondary">Show All</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Student REGNO</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for attendance, student in attendance_records %}
+                        <tr>
+                            <td>{{ student.StudentName }}</td> <!-- Display Student Name -->
+                            <td>{{ attendance.student_regno }}</td> <!-- Display REGNO -->
+                            <td>{{ attendance.date }}</td> <!-- Display Date -->
+                            <td>{{ attendance.status }}</td> <!-- Display Status -->
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">No attendance records found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-4 footer">
+            <a href="/" class="btn btn-info">Back to Home</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

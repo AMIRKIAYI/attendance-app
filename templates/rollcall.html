@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roll Call</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Roll Call</h1>
+        <form action="/rollcall" method="post">
+            <div class="form-group">
+                <input type="date" name="date" class="form-control mb-4" required>
+            </div>
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Student Name</th>
+                        <th>REGNO</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                        <tr>
+                            <td>{{ student.StudentName }}</td>
+                            <td>{{ student.REGNO }}</td>
+                            <td>
+                                <button type="button" class="btn btn-success btn-sm" onclick="setStatus('{{ student.REGNO }}', 'Present')">Present</button>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="setStatus('{{ student.REGNO }}', 'Absent')">Absent</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <input type="hidden" name="attendance" id="attendanceData">
+            <button type="submit" class="btn btn-success mt-4">Submit Roll Call</button>
+        </form>
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-info">Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        const attendance = {};
+
+        function setStatus(regno, status) {
+            attendance[regno] = status;  // Store the status
+            console.log(attendance);
+        }
+
+        document.querySelector('form').onsubmit = function() {
+            // Prepare attendance data for submission
+            const attendanceInput = document.getElementById('attendanceData');
+            attendanceInput.value = JSON.stringify(attendance); // Convert to JSON string
+        };
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
